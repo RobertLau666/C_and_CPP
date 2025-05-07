@@ -1,0 +1,251 @@
+实验要求：
+
+1. COMPUTER类
+
+声明COMPUTER是CPU和RAM的友元类
+   
+增加静态变量static int count统计computer个数，定义静态函数Showcount()用于输出数量
+
+
+定义Modifycpu函数，实现直接访问cpu的数据成员，为其赋值}
+定义ModifySetram函数，实现直接访问设置ram的数据成员，为其赋值}
+
+Getcomputer()设置为常函数。（常成员函数中只能调用常成员函数，所以相应的CPU和RAM类中的get函数也要修改为常函数，否则系统报错）
+Print()设置为常函数。（相应的CPU和RAM类中的Print函数也要修改为常函数，原因如上）
+
+Setprice()设置价格price。
+Getprice()得到价格price。
+
+
+2. 主函数
+
+输出computer数量初始值；
+
+创建CPU和RAM对象，创建新的COMPUTER对象computer1；
+输出count值；
+computer1调用Modifycpu和Modifyram，对其中的cpu和ram的属性进行修改；
+输出修改后的cpu和ram的属性值（这里注意普通对象也能调用常成员函数）
+
+创建常CPU和常RAM的对象；
+创建常COMPUTER对象computer2；（注意需要改变COMPUTER类构造函数中的参数，这里变成CPU和RAM类型的常引用；在CPU和RAM类中也要更改其复制构造函数，形参变为常引用）
+输出count值
+输出cpu和ram的属性参数值
+尝试用computer2调用set函数
+
+
+生成新的COMPUTER对象computer3，并将computer2赋给computer3（注意要实现这个功能，需要更改COMPUTER类的复制构造函数，形参为常引用；）
+输出count值
+尝试修改computer3的价格
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#include<iostream>
+using namespace std;
+enum CPU_Rank{i3=2,i5,i7};
+enum RAM_Rank{DDR,DDR2,DDR3};
+class CPU
+{
+private:
+	CPU_Rank CPURank;
+	int frequency;
+	float voltage;
+public:
+	CPU(){}
+	CPU(CPU_Rank newr,int newf,float newv);
+	CPU(const CPU &cpu);
+	void SetRank(CPU_Rank r){ CPURank=r;}
+	void SetFrequency(int f){ frequency=f;}
+	void SetVoltage(float v){ voltage=v;}
+	void print();
+	void print()const;
+	void GetRank(){ cout<<CPURank<<endl;}
+	void GetRank()const{ cout<<CPURank<<endl;}
+	void GetFrequency(){ cout<<frequency<<endl;}
+	void GetFrequency()const{ cout<<frequency<<endl;}
+	void GetVoltage(){ cout<<voltage<<endl;}
+	void GetVoltage()const{ cout<<voltage<<endl;}
+	friend class COMPUTER;
+	~CPU(){}
+};
+CPU::CPU(CPU_Rank newr,int newf,float newv)
+{
+	CPURank=newr;
+	frequency=newf;
+	voltage=newv;
+}
+CPU::CPU(const CPU &cpu)
+{
+	CPURank=cpu.CPURank;
+	frequency=cpu.frequency;
+	voltage=cpu.voltage;
+}
+void CPU::print()
+{
+	GetRank();
+	GetFrequency();
+	GetVoltage();
+}
+void CPU::print()const
+{
+	GetRank();
+	GetFrequency();
+	GetVoltage();
+}
+class RAM
+{
+private:
+	RAM_Rank RAMRank;
+	int memory;
+	float frequency;
+public:
+	RAM(){}
+	RAM(RAM_Rank newr,int newm,float newf);
+	RAM(const RAM &ram);
+	void SetRank(RAM_Rank r){ RAMRank=r;}
+	void Setmemory(int m){ memory=m;}
+	void SetFrequency(float f){ frequency=f;}
+	void print();
+	void print()const;
+	void GetRank(){ cout<<RAMRank<<endl;}
+	void GetRank()const{ cout<<RAMRank<<endl;}
+	void Getmemory(){ cout<<memory<<endl;}
+	void Getmemory()const{ cout<<memory<<endl;}
+	void GetFrequency(){ cout<<frequency<<endl;}
+	void GetFrequency()const{ cout<<frequency<<endl;}
+	friend class COMPUTER;
+	~RAM(){}
+};
+RAM::RAM(RAM_Rank newr,int newm,float newf)
+{
+	RAMRank=newr;
+	memory=newm;
+	frequency=newf;
+}
+RAM::RAM(const RAM &ram)
+{
+    RAMRank=ram.RAMRank;
+    memory=ram.memory;
+    frequency=ram.frequency;
+} 
+void RAM::print()
+{
+	GetRank();
+	Getmemory();
+	GetFrequency();
+}
+void RAM::print()const
+{
+	GetRank();
+	Getmemory();
+	GetFrequency();
+} 
+class COMPUTER
+{
+private:
+	CPU dcpu;
+	RAM dram;
+	const CPU gcpu;
+	const RAM gram;
+	string brand;
+	int price;
+	static int count;
+public:
+	COMPUTER(){}
+	COMPUTER(const CPU xcpu,const RAM xram);
+	COMPUTER(const COMPUTER &computer);
+	void SetComputer();
+	void Setprice(int p){ price=p;}
+	void Modifycpu();
+	void ModifySetram();
+	void Print();
+	void Print()const;
+	void GetComputer();
+	void GetComputer()const;
+	void Getprice()const{ cout<<price<<endl;}
+	static void Showcount(){ cout<<"count="<<count<<endl;}
+	~COMPUTER(){ count--;}
+};
+COMPUTER::COMPUTER(const CPU xcpu,const RAM xram):gcpu(xcpu),gram(xram)
+{
+	cout<<"初始化构造了一个COMPUTER!"<<endl;
+	count++;
+}
+COMPUTER::COMPUTER(const COMPUTER &computer):gcpu(computer.gcpu),gram(computer.gram)
+{
+	cout<<"调用COMPUTER的复制构造函数"<<endl;
+	count++;
+}
+void COMPUTER::SetComputer()
+{
+	dcpu.SetRank(i5);
+	dcpu.SetFrequency(2400);
+	dcpu.SetVoltage(2.8);
+	dram.SetRank(DDR3);
+	dram.Setmemory(8);
+	dram.SetFrequency(2.4);
+}
+void COMPUTER::Modifycpu()
+{
+	dcpu.SetRank(i7);
+	dcpu.SetFrequency(4800);
+	dcpu.SetVoltage(5.6);
+}
+void COMPUTER::ModifySetram()
+{
+	dram.SetRank(DDR2);
+	dram.Setmemory(16);
+	dram.SetFrequency(5.4);
+}
+void COMPUTER::GetComputer()
+{
+	gcpu.GetRank();
+	gcpu.GetFrequency();
+	gcpu.GetVoltage();
+	gram.GetRank();
+	gram.Getmemory();
+	gram.GetFrequency();
+}
+void COMPUTER::GetComputer()const
+{
+	gcpu.GetRank();
+	gcpu.GetFrequency();
+	gcpu.GetVoltage();
+	gram.GetRank();
+	gram.Getmemory();
+	gram.GetFrequency();
+}
+void COMPUTER::Print()
+{
+	gcpu.print();
+	gram.print();
+}
+void COMPUTER::Print()const
+{
+	gcpu.print();
+	gram.print();
+}
+int COMPUTER::count=0;
+int main()
+{
+	COMPUTER::Showcount();
+	CPU mycpu(i5,2400,2.8);
+	RAM myram(DDR3,8,2.4);
+	COMPUTER computer1(mycpu,myram);
+	COMPUTER::Showcount();
+	computer1.Modifycpu();
+	computer1.ModifySetram();
+	computer1.GetComputer();
+	const CPU yourcpu(i3,1200,1.4);
+	const RAM yourram(DDR,4,1.2);
+	const COMPUTER computer2(yourcpu,yourram);
+	COMPUTER::Showcount();
+	computer2.GetComputer();
+	COMPUTER computer3(computer2);
+	COMPUTER::Showcount();
+	computer3.GetComputer();
+	computer3.Setprice(6000);
+	computer3.Getprice();
+	return 0;
+}
+

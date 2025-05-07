@@ -1,0 +1,46 @@
+实验一
+#include<iostream>
+using namespace std;
+int x = 5, y = 7;                                     //x,y可见，x，y是命名空间作用域中的全局变量
+void myFunction()
+{
+	int y = 10;                                   //y不可见，被隐藏，y是局部作用域中的局部变量
+	cout << "x from myFunction: " << x << "\n";
+	cout << "y from myFunction: " << y << "\n\n";
+}
+int main()
+{
+	cout << "x from main: " << x << "\n";
+	cout << "y from main: " << y << "\n\n";
+	myFunction();
+	cout << "Back from myFunction!\n\n";
+	cout << "x from main: " << x << "\n";
+	cout << "y from main: " << y << "\n";
+	return 0;
+}
+
+设想输出
+x from main: 5
+y from main: 7
+
+x from myFunction: 5
+y from myFunction: 10
+
+Back from myFunction!
+
+x from main: 5
+y from main: 10
+
+实际输出
+x from main: 5
+y from main: 7
+
+x from myFunction: 5
+y from myFunction: 10
+
+Back from myFunction!
+
+x from main: 5
+y from main: 7
+
+

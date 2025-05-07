@@ -1,0 +1,45 @@
+实验要求：
+
+类的继承
+1. 定义vehicle类
+
+数据成员：int MaxSpeed和float Weight
+
+成员函数：
+
+默认构造函数和带形参的构造函数，函数体内"The vehicle has been constructed"；
+定义复制构造函数；
+析构函数函数体内"The vehicle has been deconstructed"；
+void print() 输出数据；
+void Run() 输出"The vehicle is running!"；	
+void Stop() 输出"The vehicle has stopped!"
+
+
+2. 定义motorcar类，公有继承vehicle
+
+数据成员：float Length, float Height, float Gas
+
+成员函数：
+
+默认构造函数和带形参的构造函数，函数体内"The motorcar has been constructed"；
+定义复制构造函数；
+析构函数函数体内"The motorcar has been deconstructed"；
+void print() 输出数据（调用继承自vehicle类的print()输出MaxSpeed和Weight，其他的数据正常输出）；
+void Run() 输出"The motorcar is running!"；
+void Stop() 输出"The motorcar has stopped!"
+
+3. 定义motorcycle类，公有继承motorcar类
+
+数据成员：int power
+
+成员函数：
+默认构造函数和带形参的构造函数，函数体内"The motorcycle has been constructed"；
+定义复制构造函数；
+析构函数函数体内"The motorcycle has been deconstructed"；
+void print() 输出数据（调用继承自motorcar类的print()输出继承的5个数据，power正常输出）；
+void Run() 输出"The motorcycle is running!"；	
+void Stop() 输出"The motorcycle has stopped!"
+
+4. 主程序内分别定义3个类的对象，每个类对象调用print()输出数据值
+
+

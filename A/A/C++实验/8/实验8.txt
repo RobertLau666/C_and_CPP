@@ -1,0 +1,17 @@
+实验要求：
+
+
+ 1.将动态数组类ArrayOfCpu的复制构造函数改写为深复制
+   
+ 2.在主函数中：
+   创建动态数组类ArrayOfCpu的对象cpuArray1，设置对象数组中的两个对象元素cpu1和cpu2参数的值；
+   创建动态数组类ArrayOfCpu的对象cpuArray2，将cpuArray1复制给cpuArray2；
+   输出cpuArray2数组中两个cpu对象的值；
+   重新设置cpuArray1数组中两个cpu对象的值，数值与第一次设置的值不同；
+   再次输出cpuArray2数组中两个cpu对象的值；
+
+注：第一次设置对象cpuArray1中cpu1和cpu2的值，并且将cpuArray1复制给cpuArray2，cpuArray2中cpu1和cpu2的值应该和cpuArray1中的一样
+    第二次设置对象cpuArray1中cpu1和cpu2的值后，cpuArray2中cpu1和cpu2的值保留原值不变，因此与cpuArray1中的不同。
+
+
+

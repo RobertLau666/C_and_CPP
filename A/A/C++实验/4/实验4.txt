@@ -1,0 +1,298 @@
+实验要求：
+
+实验一、
+
+1. 添加cpu类的复制构造函数（输出“正在复制构造CPU对象”）
+2. 添加cpu类的析构函数（输出“正在删除CPU对象!”）
+3、新定义print()函数用于输出cpu类的三个成员数据值
+3. 仿照p112，实现调用复制构造函数的三种情况，并且通过print()函数输出被复制的新cpu对象的三个数值
+
+实验二、
+
+1. 新建RAM类
+
+（1）属性
+     
+     枚举类型RAM_Rank变量表示内存型号（与cpu型号类似，其元素为DDR，DDR2，DDR3）；
+     int Memory（内存大小）；
+     float frequency;
+
+（2）操作（函数）
+
+     构造函数、复制构造函数、析构函数与CPU类对应一致
+     
+     RAM_Rank GetRank()
+     float GetFrequency()
+     int GetMemory()
+
+     void SetRank(RAM_Rank r)
+     void SetFrequency(float f)
+     void SetMemory(int m)
+
+     void Print() 用于输出RAM类的三个成员数据值
+     void Run() 输出"RAM开始运行!"
+     void Stop() 输出"RAM停止运行!"
+
+2. 新建COMPUTER类
+
+（1）成员对象CPU,RAM，string brand，int price
+（2）成员函数
+
+     默认构造函数，输出"默认构造了一个COMPUTER!";
+
+     带形参的初始式的构造函数（将CPU和RAM类对象作为参数），输出"初始化构造了一个COMPUTER!";
+
+
+     复制构造函数,输出”调用COMPUTER的复制构造函数“;
+
+     析构函数输出"正在删除COMPUTER对象!";
+
+
+     void SetComputer()，调用CPU与RAM对象的set函数；
+     void GetComputer()，调用CPU与RAM对象的get函数；
+
+
+     void Print() 调用CPU和RAM两个对象的Print()，输出对应的参数值；
+     void Run() 调用CPU和RAM两个对象的Run，并输出"COMPUTER开始运行!"；
+     void Stop() 调用CPU和RAM两个对象的Stop，并输出"COMPUTER停止运行!"；
+
+3. 主函数
+
+
+创建CPU和RAM的对象cpu（i5，2400，2.8）和ram（DDR3，8，2.4）；
+用以cpu和ram作为参数的方式创建COMPUTER对象computer1；
+显示computer1的属性
+运行computer1的Run函数
+运行computer1的Stop函数
+
+利用computer1来复制构造一个新的对象computer2；
+显示computer2的属性
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#include<iostream>
+using namespace std;
+enum CPU_Rank{i3=2,i5,i7};
+enum RAM_Rank{DDR,DDR2,DDR3};
+class CPU
+{
+private:
+	CPU_Rank CPURank;
+	int frequency;
+	float voltage;
+public:
+	CPU(){}
+	CPU(CPU_Rank CPURank,int newf,float newv);
+	CPU(CPU &cpu);
+	void SetRank(CPU_Rank CPURank);
+	void SetFrequency(int f);
+	void SetVoltage(float v);
+	void Run();
+	void print();
+	void GetRank();
+	void GetFrequency();
+	void GetVoltage();
+	void Stop();
+	~CPU()
+	{cout<<"正在删除RAM对象!"<<endl;};
+};
+CPU::CPU(CPU_Rank CPURank,int newf,float newv)
+{
+	CPURank=i5;
+	frequency=newf;
+	voltage=newv;
+	cout<<"正在构造对象"<<endl;
+}
+CPU::CPU(CPU &cpu)
+{
+	CPURank=cpu.CPURank;
+	frequency=cpu.frequency;
+	voltage=cpu.voltage;
+	cout<<"正在复制构造CPU对象"<<endl;
+}
+void CPU::SetRank(CPU_Rank CPURank)
+{
+	CPURank=i5;
+}
+void CPU::SetFrequency(int f)
+{
+	frequency=f;
+}
+void CPU::SetVoltage(float v)
+{
+	voltage=v;
+}
+void CPU::Run()
+{
+	cout<<"CPU开始运行!"<<endl;
+}
+void CPU::print()
+{
+	GetRank();
+	GetFrequency();
+	GetVoltage();
+}
+void CPU:: GetRank() 
+{
+	cout<<i5<<endl;
+}
+void CPU::GetFrequency()
+{
+	cout<<frequency<<endl;
+}
+void CPU::GetVoltage()
+{
+	cout<<voltage<<endl;
+}
+void CPU::Stop()
+{
+	cout<<"CPU停止运行!"<<endl;
+}
+class RAM
+{
+private:
+	RAM_Rank RAMRank;
+	int memory;
+	float frequency;
+public:
+	RAM(){}
+	RAM(RAM_Rank RAMRank,int newm,float newf);
+	RAM(RAM &ram);
+	void SetRank(RAM_Rank RAMRank);
+	void Setmemory(int m);
+	void SetFrequency(float f);
+	void Run();
+	void print();
+	void GetRank();
+	void Getmemory();
+	void GetFrequency();
+	void Stop();
+	~RAM()
+	{cout<<"正在删除RAM对象!"<<endl;};
+};
+RAM::RAM(RAM_Rank RAMRank,int newm,float newf)
+{
+	RAMRank=DDR3;
+	memory=newm;
+	frequency=newf;
+	cout<<"正在构造对象"<<endl;
+}
+RAM::RAM(RAM &ram)
+{
+    RAMRank=ram.RAMRank;
+	memory=ram.memory;
+    frequency=ram.frequency;
+	cout<<"正在复制构造CPU对象"<<endl;
+}
+void RAM::SetRank(RAM_Rank RAMRank)
+{
+	RAMRank=DDR3;
+}
+void RAM::SetFrequency(float f)
+{
+	frequency=f;
+}
+void RAM::Setmemory(int v)
+{
+	memory=v;
+}
+void RAM::Run()
+{
+	cout<<"RAM开始运行!"<<endl;
+}
+void RAM::print()
+{
+	GetRank();
+	Getmemory();
+	GetFrequency();
+}
+void RAM:: GetRank() 
+{
+	cout<<DDR3<<endl;
+}
+void RAM::Getmemory()
+{
+	cout<<memory<<endl;
+}
+void RAM::GetFrequency()
+{
+	cout<<frequency<<endl;
+}
+void RAM::Stop()
+{
+	cout<<"RAM停止运行!"<<endl;
+}
+class COMPUTER
+{
+private:
+	CPU mycpu;
+	RAM myram;
+	string brand;
+	int price;
+public:
+	COMPUTER(){cout<<"默认构造了一个COMPUTER!"<<endl;}
+	COMPUTER(CPU mycpu,RAM myram){cout<<"初始化构造了一个COMPUTER!"<<endl;}
+	void SetComputer();
+	void Run();
+	void Print();
+	void GetComputer();
+	void Stop();
+	~COMPUTER()
+	{cout<<"正在删除COMPUTER对象!"<<endl;}
+};
+void COMPUTER::SetComputer()
+{
+	mycpu.SetRank(i5);
+	mycpu.SetFrequency(2400);
+	mycpu.SetVoltage(2.8);
+	myram.SetRank(DDR3);
+	myram.Setmemory(8);
+	myram.SetFrequency(2.4);
+}
+void COMPUTER::Run()
+{
+	mycpu.Run();
+	myram.Run();
+	cout<<"COMPUTER开始运行!"<<endl;
+}
+void COMPUTER::GetComputer()
+{
+	mycpu.GetRank();
+	mycpu.GetFrequency();
+	mycpu.GetVoltage();
+	myram.GetRank();
+	myram.Getmemory();
+	myram.GetFrequency();
+}
+void COMPUTER::Print()
+{
+	mycpu.print();
+	myram.print();
+}
+void COMPUTER::Stop()
+{
+	mycpu.Stop();
+	myram.Stop();
+	cout<<"COMPUTER停止运行!"<<endl;
+}
+int main()
+{
+	CPU mycpu(i5,2400,2.8);
+	RAM myram(DDR3,8,2.4);
+	COMPUTER computer1;
+	COMPUTER computer2;
+	computer1.Run();
+	computer1.SetComputer();
+	
+	computer1.GetComputer();
+	computer1.Stop();
+	computer2=computer1;
+	computer2.GetComputer();
+	return 0;
+}
+
+
+
+
+
+ 

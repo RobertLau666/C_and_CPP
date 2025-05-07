@@ -1,0 +1,18 @@
+定义一个CPU类
+属性变量（私有的 private）：
+1、枚举类型CPU_Rank变量表示cpu的型号（枚举类型CPU_Rank在类外定义，其元素为i3，i5，i7）；
+2、整型变量frequency表示cpu频率
+3、浮点型变量voltage表示cpu电压
+功能函数（公有 public）：
+1、CPU_Rank GetRank()，用于返回cpu型号
+2、GetFrequency()函数，用于返回频率值
+3、GetVoltage()函数，用于返回电压值
+4、SetRank(CPU_Rank r)，用于设置类中的CPU_Rank变量
+5、SetFrequency(int f)，用于设置类中的frequency变量
+6、SetVoltage(float v)，用于设置类中的voltage变量
+7、Run() 输出"CPU开始运行!" 
+8、Stop() 输出"CPU停止运行!"
+
+在主函数中
+定义cpu对象，（1）调用cpu对象的三个set成员函数分别为cpu的三个参数赋值，调用三个get函数输出三个参数值。
+             （2）调用cpu对象的Run()和Stop()函数。
